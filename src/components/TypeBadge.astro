@@ -1,0 +1,64 @@
+---
+interface Props {
+  type: string;
+  size?: 'sm' | 'md';
+}
+
+const { type, size = 'md' } = Astro.props;
+
+const typeTranslations: any = {
+  fire: 'Fuego', water: 'Agua', grass: 'Planta', electric: 'Eléctrico',
+  ice: 'Hielo', fighting: 'Lucha', poison: 'Veneno', ground: 'Tierra',
+  flying: 'Volador', psychic: 'Psíquico', bug: 'Bicho', rock: 'Roca',
+  ghost: 'Fantasma', dragon: 'Dragón', normal: 'Normal', fairy: 'Hada',
+  steel: 'Acero', dark: 'Siniestro'
+};
+
+const typeColors: any = {
+  fire: '#ef4444', water: '#3b82f6', grass: '#22c55e', electric: '#eab308',
+  ice: '#67e8f9', fighting: '#b91c1c', poison: '#a855f7', ground: '#d97706',
+  flying: '#818cf8', psychic: '#ec4899', bug: '#84cc16', rock: '#78350f',
+  ghost: '#6366f1', dragon: '#4338ca', normal: '#94a3b8', fairy: '#f472b6'
+};
+
+const color = typeColors[type] || '#64748b';
+const translation = typeTranslations[type] || type;
+---
+
+<span 
+  class={`type-badge ${size} ${type}`} 
+  style={`--type-color: ${color}`}
+>
+  {translation}
+</span>
+
+<style>
+  .type-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: white;
+    background-color: var(--type-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    letter-spacing: 0.025em;
+  }
+
+  .md {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .sm {
+    padding: 0.125rem 0.5rem;
+    font-size: 0.65rem;
+  }
+
+  .type-badge:hover {
+    filter: brightness(1.1);
+    transform: translateY(-1px);
+    transition: all 0.2s;
+  }
+</style>
